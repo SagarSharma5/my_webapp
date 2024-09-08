@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live API Data</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <section class="my-10 max-w-6xl mx-auto">
+        <h2 class="text-2xl mb-6">Users Data from Live API</h2>
+        <div id="usersContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </section>
+
+    <div class="flex justify-center mt-8">
+        <button id="prevBtn" class="px-4 py-2 bg-gray-300 mr-2 rounded">Previous</button>
+        <button id="nextBtn" class="px-4 py-2 bg-gray-300 rounded">Next</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
