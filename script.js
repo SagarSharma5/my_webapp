@@ -1,4 +1,4 @@
-const githubJsonUrl = 'https://raw.githubusercontent.com/yourusername/yourrepository/main/data.json';
+const githubJsonUrl = 'https://raw.githubusercontent.com/SagarSharma5/my_webapp/main/data.json';
 const liveApiUrl = 'https://jsonplaceholder.typicode.com/users';
 
 let currentPage = 1;
