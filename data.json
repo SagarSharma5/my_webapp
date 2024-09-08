@@ -1,0 +1,33 @@
+[
+    {
+      "id": 1,
+      "name": "Web Development",
+      "description": "Learn HTML, CSS, JavaScript, and more."
+    },
+    {
+      "id": 2,
+      "name": "Data Science",
+      "description": "Master Python, R, and machine learning."
+    },
+    {
+      "id": 3,
+      "name": "Cyber Security",
+      "description": "Understand how to secure systems and networks."
+    },
+    {
+      "id": 4,
+      "name": "AI & Machine Learning",
+      "description": "Explore artificial intelligence concepts and ML."
+    },
+    {
+      "id": 5,
+      "name": "Digital Marketing",
+      "description": "Learn SEO, SEM, and social media marketing."
+    },
+    {
+      "id": 6,
+      "name": "Cloud Computing",
+      "description": "Master AWS, Azure, and Google Cloud."
+    }
+  ]
+  

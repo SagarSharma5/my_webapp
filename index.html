@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses and Users App</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- HERO Section -->
+    <section class="hero bg-blue-600 text-white py-20 text-center">
+        <h1 class="text-4xl font-bold">Welcome to Our Courses</h1>
+        <p class="mt-4">Find the best courses and user data fetched from a live API.</p>
+        <button class="mt-6 px-6 py-2 bg-white text-blue-600 font-bold rounded">Get Started</button>
+    </section>
+
+    <!-- Filter, Sort, and Course Display -->
+    <section class="my-10 max-w-6xl mx-auto">
+        <div class="flex justify-between items-center mb-6">
+            <input type="text" id="filterInput" placeholder="Filter by course name..." class="border p-2 rounded w-1/2">
+            <select id="sortSelect" class="border p-2 rounded">
+                <option value="asc">Sort by Name (A-Z)</option>
+                <option value="desc">Sort by Name (Z-A)</option>
+            </select>
+        </div>
+
+        <div id="coursesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Courses will be displayed here dynamically -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="flex justify-center mt-8">
+            <button id="prevBtn" class="px-4 py-2 bg-gray-300 mr-2 rounded">Previous</button>
+            <button id="nextBtn" class="px-4 py-2 bg-gray-300 rounded">Next</button>
+        </div>
+    </section>
+
+    <!-- Live API Users Section -->
+    <section class="my-10 max-w-6xl mx-auto">
+        <h2 class="text-2xl mb-6">Users Data from Live API</h2>
+        <div id="usersContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Users from the live API will be displayed here dynamically -->
+        </div>
+    </section>
+
+    <!-- Sign-up Form -->
+    <section class="max-w-xl mx-auto my-10 p-6 bg-white rounded shadow-lg">
+        <h2 class="text-2xl mb-4">Sign Up for Updates</h2>
+        <form id="signupForm">
+            <input type="text" id="name" placeholder="Enter your name" class="border p-2 rounded w-full mb-4" required>
+            <input type="email" id="email" placeholder="Enter your email" class="border p-2 rounded w-full mb-4" required>
+            <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded">Sign Up</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
