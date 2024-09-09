@@ -6,15 +6,56 @@
     <title>Landing Page</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 64, 1); /* Blue color similar to the hover state */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .navbar {
+            background-color: rgba(0, 0, 64, 1)
+            ; /* Same color as button before hover */
+        }
+        .footer {
+            background-color: rgba(0, 0, 64, 1); /* Same color as button before hover */
+            color: white;
+        }
+    </style>
 </head>
-<body class="h-screen overflow-hidden">
-    <section class="hero bg-cover bg-center h-full text-white flex flex-col justify-center items-center" style="background-image: url('https://via.placeholder.com/1600x900');">
+<body class="h-screen overflow-hidden flex flex-col">
+    <!-- Navbar -->
+    <nav class="navbar py-4 px-6 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-lg font-bold">Home</a>
+            <div>
+                <a href="live-api.html" class="btn mr-4">Live API Data</a>
+                <a href="json-api.html" class="btn">GitHub JSON Data</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="hero flex-grow text-white flex flex-col justify-center items-center"
+        style="background: radial-gradient(circle, rgba(0, 0, 128, 0.9), rgba(0, 0, 64, 1));">
         <h1 class="text-5xl font-bold mb-6">Welcome to Our Platform</h1>
         <p class="text-xl mb-10">Explore data fetched from live APIs and GitHub.</p>
         <div>
-            <a href="live-api.html" class="btn hover:bg-blue-700 transition duration-300">Live API Data</a>
-            <a href="json-api.html" class="btn hover:bg-green-700 transition duration-300 ml-4">GitHub JSON Data</a>
+            <a href="live-api.html" class="btn">Live API Data</a>
+            <a href="json-api.html" class="btn ml-4">GitHub JSON Data</a>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer class="footer py-4 text-center">
+        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    </footer>
 </body>
 </html>

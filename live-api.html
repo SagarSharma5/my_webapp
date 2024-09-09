@@ -5,17 +5,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live API Data</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 64, 1); /* Blue color similar to the hover state */
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+        .navbar {
+            background-color: rgba(0, 0, 64, 1)
+            ; /* Same color as button before hover */
+        }
+        .footer {
+            background-color: rgba(0, 0, 64, 1); /* Same color as button before hover */
+            color: white;
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 h-screen overflow-hidden flex flex-col" style="background: radial-gradient(circle, rgba(0, 0, 128, 0.9), rgba(0, 0, 64, 1));">
+
+    <nav class="navbar py-4 px-6 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-lg font-bold">Home</a>
+            <div>
+                <a href="live-api.html" class="btn mr-4">Live API Data</a>
+                <a href="json-api.html" class="btn">GitHub JSON Data</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <main class="flex-1">
     <section class="my-10 max-w-6xl mx-auto">
-        <h2 class="text-2xl mb-6">Users Data from Live API</h2>
+        <h2 class="text-2xl mb-6 text-white">Users Data from Live API</h2>
+        
+        <!-- Sorting and Filtering -->
+        <div class="flex space-x-4 mb-4">
+            <input type="text" id="searchInput" placeholder="Filter by name..." class="p-2 border border-gray-400 rounded">
+            <select id="sortSelect" class="p-2 border border-gray-400 rounded">
+                <option value="">Sort By</option>
+                <option value="name">Name</option>
+                <option value="email">Email</option>
+            </select>
+        </div>
+
         <div id="usersContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </section>
 
+    <!-- Pagination Buttons -->
     <div class="flex justify-center mt-8">
         <button id="prevBtn" class="px-4 py-2 bg-gray-300 mr-2 rounded">Previous</button>
         <button id="nextBtn" class="px-4 py-2 bg-gray-300 rounded">Next</button>
-    </div>
+    </div></main>
+
+    <footer class="footer py-4 text-center justify-end">
+        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
