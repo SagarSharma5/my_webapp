@@ -1,33 +1,62 @@
 [
     {
-      "id": 1,
-      "name": "Web Development",
-      "description": "Learn HTML, CSS, JavaScript, and more."
+        "courseId": "C101",
+        "title": "Introduction to Web Development",
+        "instructor": "Alice Smith",
+        "duration": "12 hours",
+        "rating": "4.7",
+        "category": "Programming",
+        "price": "$60",
+        "enrolled": "3200"
     },
     {
-      "id": 2,
-      "name": "Data Science",
-      "description": "Master Python, R, and machine learning."
+        "courseId": "C102",
+        "title": "Python Programming Language",
+        "instructor": "Bob Johnson",
+        "duration": "15 hours",
+        "rating": "4.8",
+        "category": "Data Science",
+        "price": "$70",
+        "enrolled": "4500"
     },
     {
-      "id": 3,
-      "name": "Cyber Security",
-      "description": "Understand how to secure systems and networks."
+        "courseId": "C103",
+        "title": "Programming with C",
+        "instructor": "Carla Martinez",
+        "duration": "8 hours",
+        "rating": "4.6",
+        "category": "Programming",
+        "price": "$40",
+        "enrolled": "2800"
     },
     {
-      "id": 4,
-      "name": "AI & Machine Learning",
-      "description": "Explore artificial intelligence concepts and ML."
+        "courseId": "C104",
+        "title": "Advanced Database Technologies",
+        "instructor": "David Lee",
+        "duration": "20 hours",
+        "rating": "4.9",
+        "category": "Database",
+        "price": "$90",
+        "enrolled": "3500"
     },
     {
-      "id": 5,
-      "name": "Digital Marketing",
-      "description": "Learn SEO, SEM, and social media marketing."
+        "courseId": "C105",
+        "title": "Computer Architecture and Design",
+        "instructor": "Eva Green",
+        "duration": "14 hours",
+        "rating": "4.4",
+        "category": "Computer Science",
+        "price": "$55",
+        "enrolled": "2600"
     },
     {
-      "id": 6,
-      "name": "Cloud Computing",
-      "description": "Master AWS, Azure, and Google Cloud."
+        "courseId": "C106",
+        "title": "Research Methodology",
+        "instructor": "Frank Wright",
+        "duration": "18 hours",
+        "rating": "4.6",
+        "category": "Research",
+        "price": "$65",
+        "enrolled": "3100"
     }
-  ]
-  
+]

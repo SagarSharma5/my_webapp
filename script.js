@@ -1,71 +1,34 @@
-const githubJsonUrl = 'https://raw.githubusercontent.com/SagarSharma5/my_webapp/main/data.json';
-const liveApiUrl = 'https://jsonplaceholder.typicode.com/users';
+const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+const liveApiUrl = 'https://api.coursera.org/api/courses.v1';
 
 let currentPage = 1;
-let jsonCurrentPage = 1;
 const itemsPerPage = 3;
 
 // Fetch Live API data and implement sorting and filtering
-function loadUsers() {
-    fetch(liveApiUrl)
-        .then(response => response.json())
-        .then(users => {
-            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
-            const sortCriteria = document.getElementById('sortSelect')?.value || '';
-
-            let filteredUsers = users.filter(user => user.name.toLowerCase().includes(searchTerm));
-
-            if (sortCriteria === 'name') {
-                filteredUsers.sort((a, b) => a.name.localeCompare(b.name));
-            } else if (sortCriteria === 'email') {
-                filteredUsers.sort((a, b) => a.email.localeCompare(b.email));
-            }
-
-            displayUsers(filteredUsers);
-        })
-        .catch(error => console.error('Error fetching live API data:', error));
-}
-
-// Display Users with pagination
-function displayUsers(users) {
-    const usersContainer = document.getElementById('usersContainer');
-    if (!usersContainer) return;
-
-    usersContainer.innerHTML = '';
-
-    const start = (currentPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedUsers = users.slice(start, end);
-
-    paginatedUsers.forEach(user => {
-        const userElement = document.createElement('div');
-        userElement.classList.add('bg-white', 'p-4', 'rounded', 'shadow');
-        userElement.innerHTML = `
-            <h3 class="text-xl font-bold">${user.name}</h3>
-            <p>Email: ${user.email}</p>
-            <p>Phone: ${user.phone}</p>
-        `;
-        usersContainer.appendChild(userElement);
-    });
-}
-
-// Fetch GitHub JSON data and implement sorting and filtering
 function loadCourses() {
-    fetch(githubJsonUrl)
+    fetch(proxyUrl + liveApiUrl)
         .then(response => response.json())
-        .then(courses => {
+        .then(data => {
+            const courses = data.elements || []; // Adjust this based on the actual response structure
+
             const searchTerm = document.getElementById('jsonSearchInput')?.value.toLowerCase() || '';
             const sortCriteria = document.getElementById('jsonSortSelect')?.value || '';
 
-            let filteredCourses = courses.filter(course => course.name.toLowerCase().includes(searchTerm));
+            let filteredCourses = courses.filter(course => 
+                (course.title || '').toLowerCase().includes(searchTerm)
+            );
 
             if (sortCriteria === 'name') {
-                filteredCourses.sort((a, b) => a.name.localeCompare(b.name));
+                filteredCourses.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+            } else if (sortCriteria === 'instructor') {
+                filteredCourses.sort((a, b) => (a.instructor || '').localeCompare(b.instructor || ''));
+            } else if (sortCriteria === 'rating') {
+                filteredCourses.sort((a, b) => (b.rating || 0) - (a.rating || 0));
             }
 
             displayCourses(filteredCourses);
         })
-        .catch(error => console.error('Error fetching GitHub data:', error));
+        .catch(error => console.error('Error fetching live API data:', error));
 }
 
 // Display Courses with pagination
@@ -75,41 +38,47 @@ function displayCourses(courses) {
 
     coursesContainer.innerHTML = '';
 
-    const start = (jsonCurrentPage - 1) * itemsPerPage;
+    const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
     const paginatedCourses = courses.slice(start, end);
 
     paginatedCourses.forEach(course => {
         const courseElement = document.createElement('div');
         courseElement.classList.add('bg-white', 'p-4', 'rounded', 'shadow');
+        
         courseElement.innerHTML = `
-            <h3 class="text-xl font-bold">${course.name}</h3>
-            <p>${course.description}</p>
+            <h3 class="text-xl font-bold">${course.title || 'N/A'}</h3>
+            <p>Instructor: ${course.instructor || 'N/A'}</p>
+            <p>Duration: ${course.duration || 'N/A'}</p>
+            <p>Rating: ${course.rating || 'N/A'}</p>
+            <p>Category: ${course.category || 'N/A'}</p>
+            <p>Price: ${course.price || 'N/A'}</p>
+            <p>Enrolled: ${course.enrolled || 'N/A'}</p>
         `;
         coursesContainer.appendChild(courseElement);
     });
 }
 
-// Event listeners for sorting and filtering (Live API)
+// Event listeners for sorting and filtering
 document.addEventListener('DOMContentLoaded', () => {
-    const searchInput = document.getElementById('searchInput');
-    const sortSelect = document.getElementById('sortSelect');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
+    const searchInput = document.getElementById('jsonSearchInput');
+    const sortSelect = document.getElementById('jsonSortSelect');
+    const prevBtn = document.getElementById('jsonPrevBtn');
+    const nextBtn = document.getElementById('jsonNextBtn');
 
     if (searchInput) {
-        searchInput.addEventListener('input', loadUsers);
+        searchInput.addEventListener('input', loadCourses);
     }
 
     if (sortSelect) {
-        sortSelect.addEventListener('change', loadUsers);
+        sortSelect.addEventListener('change', loadCourses);
     }
 
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
-                loadUsers();
+                loadCourses();
             }
         });
     }
@@ -117,41 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
             currentPage++;
-            loadUsers();
-        });
-    }
-
-    // Load initial data
-    loadUsers();
-});
-
-// Event listeners for sorting and filtering (GitHub JSON)
-document.addEventListener('DOMContentLoaded', () => {
-    const jsonSearchInput = document.getElementById('jsonSearchInput');
-    const jsonSortSelect = document.getElementById('jsonSortSelect');
-    const jsonPrevBtn = document.getElementById('jsonPrevBtn');
-    const jsonNextBtn = document.getElementById('jsonNextBtn');
-
-    if (jsonSearchInput) {
-        jsonSearchInput.addEventListener('input', loadCourses);
-    }
-
-    if (jsonSortSelect) {
-        jsonSortSelect.addEventListener('change', loadCourses);
-    }
-
-    if (jsonPrevBtn) {
-        jsonPrevBtn.addEventListener('click', () => {
-            if (jsonCurrentPage > 1) {
-                jsonCurrentPage--;
-                loadCourses();
-            }
-        });
-    }
-
-    if (jsonNextBtn) {
-        jsonNextBtn.addEventListener('click', () => {
-            jsonCurrentPage++;
             loadCourses();
         });
     }
