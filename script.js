@@ -1,6 +1,6 @@
 const proxyUrl = 'https://api.allorigins.win/raw?url=';
 const liveApiUrl = 'https://api.coursera.org/api/courses.v1'; // Live API URL
-const githubJsonUrl = 'https://raw.githubusercontent.com/yourusername/yourrepo/main/data.json'; // Replace with your GitHub raw URL
+const githubJsonUrl = 'https://raw.githubusercontent.com/SagarSharma5/my_webapp/main/data.json'; // Replace with your GitHub raw URL
 
 let currentPage = 1;
 const itemsPerPage = 3;
