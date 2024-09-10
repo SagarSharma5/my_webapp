@@ -5,8 +5,8 @@ const githubJsonUrl = 'https://raw.githubusercontent.com/SagarSharma5/my_webapp/
 let currentPage = 1;
 const itemsPerPage = 3;
 
-// Fetch Live API data and log the response
-function loadCourses() {
+// Fetch Live API data
+function loadLiveApiCourses() {
     fetch(proxyUrl + encodeURIComponent(liveApiUrl))
         .then(response => {
             if (!response.ok) {
@@ -15,28 +15,23 @@ function loadCourses() {
             return response.json(); // Parse the response as JSON
         })
         .then(data => {
-            console.log('Parsed Data:', data); // Log the parsed JSON data
+            console.log('Parsed Live API Data:', data); // Log the parsed JSON data
 
-            // Check the structure of the response
             const courses = data.elements || []; // Adjust if the actual structure is different
 
-            // Sorting and filtering logic
-            const searchTerm = document.getElementById('searchInput')?.value.toLowerCase() || '';
-            const sortCriteria = document.getElementById('sortSelect')?.value || '';
+            // Sorting and filtering logic for live API
+            const searchTerm = document.getElementById('liveSearchInput')?.value.toLowerCase() || '';
+            const sortCriteria = document.getElementById('liveSortSelect')?.value || '';
 
-            let filteredCourses = courses.filter(course => 
+            let filteredCourses = courses.filter(course =>
                 (course.name || '').toLowerCase().includes(searchTerm)
             );
 
             if (sortCriteria === 'name') {
                 filteredCourses.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-            } else if (sortCriteria === 'instructor') {
-                filteredCourses.sort((a, b) => (a.instructor || '').localeCompare(b.instructor || ''));
-            } else if (sortCriteria === 'rating') {
-                filteredCourses.sort((a, b) => (b.rating || 0) - (a.rating || 0));
             }
 
-            displayCourses(filteredCourses); // Display courses with pagination
+            displayLiveCourses(filteredCourses); // Display courses with pagination
         })
         .catch(error => console.error('Error fetching live API data:', error));
 }
@@ -51,16 +46,15 @@ function loadGitHubData() {
             return response.json(); // Parse the response as JSON
         })
         .then(data => {
-            console.log('GitHub Data:', data); // Log the parsed JSON data
+            console.log('Parsed GitHub JSON Data:', data); // Log the parsed JSON data
 
-            // Check the structure of the response
             const courses = data.courses || []; // Adjust if the actual structure is different
 
             // Sorting and filtering logic for GitHub data
             const searchTerm = document.getElementById('jsonSearchInput')?.value.toLowerCase() || '';
             const sortCriteria = document.getElementById('jsonSortSelect')?.value || '';
 
-            let filteredCourses = courses.filter(course => 
+            let filteredCourses = courses.filter(course =>
                 (course.name || '').toLowerCase().includes(searchTerm)
             );
 
@@ -72,13 +66,13 @@ function loadGitHubData() {
                 filteredCourses.sort((a, b) => (b.rating || 0) - (a.rating || 0));
             }
 
-            displayCourses(filteredCourses, 'coursesContainer'); // Display courses with pagination
+            displayGitHubCourses(filteredCourses, 'coursesContainer'); // Display courses with pagination
         })
         .catch(error => console.error('Error fetching GitHub JSON data:', error));
 }
 
-// Display Courses with pagination
-function displayCourses(courses, containerId = 'coursesContainer') {
+// Display Live API Courses with pagination
+function displayLiveCourses(courses, containerId = 'liveCoursesContainer') {
     const coursesContainer = document.getElementById(containerId);
     if (!coursesContainer) return;
 
@@ -91,7 +85,7 @@ function displayCourses(courses, containerId = 'coursesContainer') {
     paginatedCourses.forEach(course => {
         const courseElement = document.createElement('div');
         courseElement.classList.add('bg-white', 'p-4', 'rounded', 'shadow');
-        
+
         courseElement.innerHTML = `
             <h3 class="text-xl font-bold">${course.name || 'N/A'}</h3>
             <p>Instructor: ${course.instructor || 'N/A'}</p>
@@ -101,32 +95,62 @@ function displayCourses(courses, containerId = 'coursesContainer') {
     });
 }
 
-// Event listeners for sorting and filtering on live API page
+// Display GitHub JSON Courses with pagination
+function displayGitHubCourses(courses, containerId = 'jsonCoursesContainer') {
+    const coursesContainer = document.getElementById(containerId);
+    if (!coursesContainer) return;
+
+    coursesContainer.innerHTML = '';
+
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedCourses = courses.slice(start, end);
+
+    paginatedCourses.forEach(course => {
+        const courseElement = document.createElement('div');
+        courseElement.classList.add('bg-white', 'p-4', 'rounded', 'shadow');
+
+        courseElement.innerHTML = `
+            <h3 class="text-xl font-bold">${course.name || 'N/A'}</h3>
+            <p>Instructor: ${course.instructor || 'N/A'}</p>
+            <p>Duration: ${course.duration || 'N/A'}</p>
+            <p>Rating: ${course.rating || 'N/A'}</p>
+            <p>Category: ${course.category || 'N/A'}</p>
+            <p>Price: ${course.price || 'N/A'}</p>
+            <p>Enrolled: ${course.enrolled || 'N/A'}</p>
+        `;
+        coursesContainer.appendChild(courseElement);
+    });
+}
+
+// Event listeners for sorting and filtering on both pages
 document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('searchInput')) {
-        document.getElementById('searchInput').addEventListener('input', loadCourses);
+    // Live API page
+    if (document.getElementById('liveSearchInput')) {
+        document.getElementById('liveSearchInput').addEventListener('input', loadLiveApiCourses);
     }
 
-    if (document.getElementById('sortSelect')) {
-        document.getElementById('sortSelect').addEventListener('change', loadCourses);
+    if (document.getElementById('liveSortSelect')) {
+        document.getElementById('liveSortSelect').addEventListener('change', loadLiveApiCourses);
     }
 
-    if (document.getElementById('prevBtn')) {
-        document.getElementById('prevBtn').addEventListener('click', () => {
+    if (document.getElementById('livePrevBtn')) {
+        document.getElementById('livePrevBtn').addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
-                loadCourses();
+                loadLiveApiCourses();
             }
         });
     }
 
-    if (document.getElementById('nextBtn')) {
-        document.getElementById('nextBtn').addEventListener('click', () => {
+    if (document.getElementById('liveNextBtn')) {
+        document.getElementById('liveNextBtn').addEventListener('click', () => {
             currentPage++;
-            loadCourses();
+            loadLiveApiCourses();
         });
     }
 
+    // GitHub JSON page
     if (document.getElementById('jsonSearchInput')) {
         document.getElementById('jsonSearchInput').addEventListener('input', loadGitHubData);
     }
@@ -151,12 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Load initial data for both pages
-    if (document.getElementById('coursesContainer')) {
-        loadCourses();
+    // Load initial data
+    if (document.getElementById('liveCoursesContainer')) {
+        loadLiveApiCourses();
     }
 
-    if (document.getElementById('jsonSearchInput')) {
+    if (document.getElementById('jsonCoursesContainer')) {
         loadGitHubData();
     }
 });

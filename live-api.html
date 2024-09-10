@@ -39,41 +39,35 @@
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-lg font-bold">Home</a>
             <div>
-                <a href="live-api.html" class="btn mr-4">Live API Data</a>
-                <a href="json-api.html" class="btn mr-4">GitHub JSON Data</a>
-                <a href="signup.html" class="btn">Sign Up</a>
+                <a href="json-api.html" class="btn">GitHub JSON Data</a>
             </div>
         </div>
     </nav>
 
-    <main class="flex-1 overflow-y-auto">
-        <section class="my-10 max-w-6xl mx-auto">
-            <h2 class="text-2xl mb-6 text-white">Courses from Live API</h2>
+    <header class="py-8 text-center text-white">
+        <h1 class="text-4xl font-bold">Live API Data</h1>
+        <p class="mt-4">Explore data fetched from a live API!</p>
+    </header>
 
-            <!-- Sorting and Filtering -->
-            <div class="flex space-x-4 mb-4">
-                <input type="text" id="searchInput" placeholder="Filter by course name..." class="p-2 border border-gray-400 rounded">
-                <select id="sortSelect" class="p-2 border border-gray-400 rounded">
-                    <option value="">Sort By</option>
-                    <option value="name">Name</option>
-                    <option value="instructor">Instructor</option>
-                    <option value="rating">Rating</option>
-                </select>
-            </div>
+    <main class="flex-grow container mx-auto px-4 py-8">
+        <div class="flex justify-between items-center mb-4">
+            <input type="text" id="liveSearchInput" class="border p-2 rounded" placeholder="Search courses...">
+            <select id="liveSortSelect" class="border p-2 rounded">
+                <option value="">Sort by...</option>
+                <option value="name">Name</option>
+            </select>
+        </div>
 
-            <!-- Courses data container -->
-            <div id="coursesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        </section>
+        <div id="liveCoursesContainer" class="grid grid-cols-1 gap-4"></div>
 
-        <!-- Pagination Buttons -->
-        <div class="flex justify-center mt-8">
-            <button id="prevBtn" class="px-4 py-2 bg-gray-300 mr-2 rounded">Previous</button>
-            <button id="nextBtn" class="px-4 py-2 bg-gray-300 rounded">Next</button>
+        <div class="flex justify-between items-center mt-4">
+            <button id="livePrevBtn" class="bg-blue-500 text-white py-2 px-4 rounded">Previous</button>
+            <button id="liveNextBtn" class="bg-blue-500 text-white py-2 px-4 rounded">Next</button>
         </div>
     </main>
 
-    <footer class="footer py-4 text-center">
-        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    <footer class="footer py-4 px-6 text-center">
+        <p>&copy; 2023 My Web App</p>
     </footer>
 
     <script src="script.js"></script>
